@@ -51,7 +51,7 @@
     <OutDir>.\Debug\</OutDir>
     <IntDir>.\Debug\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..//include;$(IncludePath)</IncludePath>
+    <IncludePath>..//..//..;../../;..//include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Midl>
@@ -75,13 +75,14 @@
       <ProgramDataBaseFileName>.\Release/</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <Culture>0x0409</Culture>
     </ResourceCompile>
     <Link>
-      <AdditionalDependencies>ws2_32.lib;odbc32.lib;odbccp32.lib;shlwapi.lib;../../shared/shared.lib;../../../pfc/Release/pfc.lib;../../SDK/Release/foobar2000_SDK.lib;../../foobar2000_component_client/Release/foobar2000_component_client.lib;../../helpers\Release\foobar2000_sdk_helpers.lib;../../ATLHelpers\Release\foobar2000_ATL_helpers.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ws2_32.lib;odbc32.lib;odbccp32.lib;shlwapi.lib;../../shared/shared.lib;../../../pfc/Release/pfc.lib;../../SDK/Release/foobar2000_SDK.lib;../../foobar2000_component_client/Release/foobar2000_component_client.lib;../../helpers\Release\foobar2000_sdk_helpers.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>.\Release/foo_controlserver.dll</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <ProgramDatabaseFile>.\Release/foo_controlserver.pdb</ProgramDatabaseFile>
@@ -120,6 +121,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
