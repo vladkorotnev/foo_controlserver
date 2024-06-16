@@ -19,6 +19,10 @@
  */
 
 /*
+ * Version 1.1.6 Jun 2024 - Vladislav Korotnev
+ *   - Handle dynamic metadata changes e.g. in streams and send them
+ *     over the socket as well
+ * 
  * Version 1.1.5 Dec 2017 - Walter Hartman
  *   - Updates to socket message sending due to potential performance issues
  *     for larger album art images and playlist msgs
@@ -86,10 +90,10 @@
 
 #include "controlserver.h"
 #include "chandlecallbackrun.h"
+#include "resource.h"
 
 #include "../../SDK/foobar2000.h"
 #include "../../ATLHelpers/ATLHelpers.h"
-#include "resource.h"
 
  // variable to store server port etc
 
@@ -225,7 +229,12 @@ public:
 
     // stream file info changed perhaps
     // should probably handle this in the future
-    virtual void FB2KAPI on_playback_dynamic_info_track(const file_info & p_info) { };
+    virtual void FB2KAPI on_playback_dynamic_info_track(const file_info & p_info)
+	{ 
+		static_api_ptr_t<main_thread_callback_manager> cm;
+
+		cm->add_callback(new service_impl_t<CHandleCallbackRun>(CHandleCallbackRun::trackupdateonconnect, (SOCKET)NULL));
+	};
 
     // not handling
     virtual void FB2KAPI on_playback_time(double p_time) { };
@@ -243,7 +252,7 @@ public:
     {
         return flag_on_playback_new_track | flag_on_playback_stop |
                flag_on_playback_pause | flag_on_volume_change |
-               flag_on_playback_seek;
+               flag_on_playback_seek | flag_on_playback_dynamic_info_track;
     };
 
    FB2K_MAKE_SERVICE_INTERFACE(play_callback_controlserver, play_callback_static);
@@ -624,6 +633,10 @@ DECLARE_COMPONENT_VERSION("Control Server", controlserver::m_versionNumber,
 "\n"
 "https://github.com/audiohead/foo_controlserver/releases"
 "\n\n"
+"June 2024 Version 1.1.6 : Vladislav Korotnev\n"
+"- Handle dynamic metadata changes e.g.in streams and send them"
+"over the socket as well\n"
+"\n"
 "December 2017 Version 1.1.5 : Walter Hartman\n"
 "\n"
 "- Updated socket message sending due to potential performance issues,\n"

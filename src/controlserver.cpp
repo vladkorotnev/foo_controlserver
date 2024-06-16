@@ -31,7 +31,7 @@
 
 #include "debug.h"
 
-pfc::string8 const controlserver::m_versionNumber = "1.1.5";
+pfc::string8 const controlserver::m_versionNumber = "1.1.6";
 std::vector<SOCKET> controlserver::m_vclientSockets;
 std::vector<bool> controlserver::m_canSends;
 HANDLE controlserver::m_WSAendEvent = NULL;
